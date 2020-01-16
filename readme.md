@@ -1,13 +1,13 @@
 # ITSE 1430 - Programming in C#
 
-This repository is where your classwork and lab assignments will go.
+This repository is where your classwork and lab assignments will go.lolz 
 
 ## Prerequisites
 
-Before you begin note the following prerequisites for your environment.
+Before you begin note the following prerequisites for your environment. lolz
 
-1.	Windows  7 SP1 or higher or Windows Server 2008 R2 SP1 or higher 
-2.	1.8 Ghz or faster processor (dual core or higher strongly recommended)
+1.	Windows  7 SP1 or higher or Windows Server 2008 R2 SP1 or higher lolz
+2.	1.8 Ghz or faster processor (dual core or higher strongly recommended)lolz
 3.	2 GB memory (4 GB or more strongly recommended)
 4.	10+ GB hard drive space
 5.	Fast internet connection for downloading software
