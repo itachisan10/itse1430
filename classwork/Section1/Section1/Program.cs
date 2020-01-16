@@ -6,7 +6,14 @@ namespace Section1
     {
         static void Main ( string[] args )
         {
+
             Console.WriteLine("Hello World!");
+
+            int hour = 5;
+            //double payRate;
+            //string name;
+            //bool pass;
+           
         }
     }
 }
