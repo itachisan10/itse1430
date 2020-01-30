@@ -8,87 +8,153 @@ namespace Section1
         {
             //PlayingWithVariables();                       
             AddMovie();
-        }
+        
+        string title = "";
 
-        static void AddMovie ()
+        int releaseYear = 1990;
+
+        int runLength = 192;
+
+        string description = "";
+    }
+
+    static void AddMovie ()
+    {
+        string title = ReadString("Enter a title: ", true);
+
+        int releaseYear = ReadInt32("Enter the release year (>= 0): ", 0, 2100);
+        int runLength = ReadInt32("Enter the run length (>= 0): ", 0, 86400);
+
+        string description = ReadString("Enter a description: ", false); ;
+        bool isClassic = ReadBoolean("Is this a classic movie?");
+    }
+
+    private static bool ReadBoolean ( string message )
+    {
+        Console.Write(message + " (Y/N)");
+
+        do
         {
-            string title = ReadString("Enter a title: ", true);
-
-            int releaseYear = ReadInt32("Enter the release year (>= 0): ", 0, 2100);
-            int runLength = ReadInt32("Enter the run length (>= 0): ", 0, 86400);
-
-            string description = ReadString("Enter a description: ", false);
-            bool isClassic = ReadBoolean("Is this a classic movie?");
-        }
-
-        private static bool ReadBoolean ( string message)
-        {
-            Console.Write(message + " (Y/N)");
             string value = Console.ReadLine();
 
-            //TODO: Do this correctly?
-            char firstChar = value[0];
-            return firstChar == 'Y';
-        }
+            //Check for empty string
+            // 1. if (value != "")
+            // 2. if (value != String.Empty)
+            // 3. if (value != null && value.Length == 0)
+            if (!String.IsNullOrEmpty(value))
+            {
+                // Input validation:
+                // 1. If
+                // 2. Switch
+                // 3. String casing
+                // 4. String comparison
 
-        private static string  ReadString (string message, bool required)
+                //value = value.ToLower();
+                //if (value == "y")
+                //    return true;
+                //else if (value == "n")
+                //    return false;
+
+                //bool isYes = String.Compare(value, "Y", true) == 0 ? true : false;
+
+                if (String.Compare(value, "Y", true) == 0)
+                    return true;
+                else if (String.Compare(value, "N", true) == 0)
+                    return false;
+
+                char firstChar = value[0];
+                //if (firstChar == 'Y' || firstChar =='y')
+                //    return true;
+                //else if (firstChar == 'N' || firstChar == 'n')
+                //    return false;
+                //switch (firstChar)
+                //{
+                //    //case 'A':
+                //    //{
+                //    //    Console.WriteLine("A");
+                //    //    break;
+                //    //}; // Only do this if two or more statements not including break
+                //    //case 'a': Console.WriteLine("a"); break;
+
+                //    case 'Y': // Fall through is allowed if two cases result in the same statement
+                //    case 'y': return true;
+
+                //    case 'N':
+                //    case 'n': return false;
+                //};
+            };
+
+            Console.WriteLine("Enter Y/N");
+        } while (true);
+    }
+
+    private static string ReadString ( string message, bool required )
+    {
+        Console.Write(message);
+        do
         {
-            Console.Write(message);
             string value = Console.ReadLine();
 
-            //TODO: validate
-            return value;
-        }
-
-        private static int ReadInt32 ( string message, int minValue, int maxValue )
-        {
-            Console.Write(message);
-
-            string temp = Console.ReadLine();
-            //int value = Int32.Parse(temp);
-            int value;
-
-            //TODO: clean this up.
-            if (Int32.TryParse(temp, out value))
+            //If required and string is empty then error
+            if (!String.IsNullOrEmpty(value) || !required)
                 return value;
 
-            //TODO: Validate input
-            return -1;
-        }
+            if (required)
+                Console.WriteLine("Value is required");
+        } while (true);
+    }
 
-        private static void PlayingWithVariables ()
+    private static int ReadInt32 ( string message, int minValue, int maxValue )
+    {
+        Console.Write(message);
+
+        do
         {
-            Console.WriteLine("Hello World!");
+            // string temp = Console.ReadeLine();
+            var temp = Console.ReadLine();
+            //int value = Int32.Parse(temp);
 
-            int hours;
-            double payRate;
-
+            //TODO: Clean this up
+            //int value;
+            if (Int32.TryParse(temp, out var value))
             {
-                string name;
-                bool pass;
-            }
+                if (value >= minValue && value <= maxValue)
+                    return value;
+            };
 
-            {
-                int name = 10;
-            }
+            Console.WriteLine("Value must be betwen minValue and maxValue.");
+        } while (true);
+    }
 
-            //Not cased properly
-            //string FirstName;
+    private static void PlayingWithVariables ()
+    {
+        Console.WriteLine("Hello World!");
 
-            //hours = 10;
-            int newHours = 10;
+        int hours;
+        double payRate;
+        string name;
+        bool pass;
 
-            //Logical block 1     
-            int hours2 = 10;
-            //int hours3;
-            //hours3 = 3;
+        /*int newHours = hours;*/ //Won't compile because hours has not been defined
+        hours = 10;
+        int newHours2 = hours;
 
-            int x, y, z;
-            int a = 10, b = 20, c = 30;
+        //Logical block 1
+        int hours2 = 10;
+        int hours3; //Don't do this
+        hours3 = 3; //Don't so this
 
-            //Display a message
-            Console.WriteLine("Enter a value");
-            string input = Console.ReadLine();
-        }
+        Console.WriteLine("Enter a value"); // Displays a message to the console window for the user to see
+        Console.WriteLine(10); //Overloaded the WriteLine function to display an int
+        string input = Console.ReadLine();  // Gets input from the user
+
+        //int results; //Don't do this
+        //results = Foo(); //Don't do this
+        //int results2 = Foo();
+
+        int x, y, z;
+        int a = 10, b = 20, c = 30;
     }
 }
+}
+      
