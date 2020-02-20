@@ -9,6 +9,7 @@ namespace MovieLibrary.Business
     public class Movie
     {
 
+        public Genre Genre { get; set; }
         /// <summary>
         /// Represents a movie.
         /// </summary>
