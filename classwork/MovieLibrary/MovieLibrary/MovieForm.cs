@@ -55,6 +55,9 @@ namespace MovieLibrary.WinForms
         }
         private void OnOk(object sender, EventArgs e)
         {
+            if (!ValidateChildren())
+                return;
+
             //TODO: Validation and error reporting.
             var movie = GetMovie();
             if (!movie.Validate(out var error))
@@ -69,6 +72,7 @@ namespace MovieLibrary.WinForms
         }
         protected override void OnLoad(EventArgs e)
         {
+            
             base.OnLoad(e);
 
             //populate combo
@@ -85,6 +89,8 @@ namespace MovieLibrary.WinForms
 
                 if (Movie.Genre != null)
                     ddlGenres.SelectedText = Movie.Genre.Description;
+                //triggering validation option 
+                ValidateChildren();
             };
         }
 
@@ -147,6 +153,44 @@ namespace MovieLibrary.WinForms
             //var newTitle = this.Text;
             MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+        }
+
+        private void OnValidateTitle ( object sender, CancelEventArgs e )
+        {
+            var control = sender as TextBox;
+
+            if (String.IsNullOrEmpty(control.Text))
+            {
+                //DisplayError("Title is requiredz");     
+                _errors.SetError(control, "Title is requiredz");
+                e.Cancel = true;
+            } else
+                _errors.SetError(control, "");
+        }
+
+        private void OnValidateRunLength ( object sender, CancelEventArgs e )
+        {
+            var control = sender as Control;
+            var value = GetAsInt32(control, 0);
+            if (value < 0)
+            {
+                //DisplayError("Run length must be >= 0.");
+                _errors.SetError(control, "Run length must be >= 0.");
+                e.Cancel = true;
+            } else
+                _errors.SetError(control, "");
+        }
+        private void OnValidateReleaseYear ( object sender, CancelEventArgs e )
+        {
+            var control = sender as Control;
+            var value = GetAsInt32(control, 1900);
+            if (value < 1900)
+            {
+                //DisplayError("Release year must be >= 0.");
+                _errors.SetError(control, "Release year must be >= 0.");
+                e.Cancel = true;
+            } else
+                _errors.SetError(control, "");
         }
     }
 }

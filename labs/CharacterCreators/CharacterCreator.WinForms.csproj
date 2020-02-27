@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{757C102B-EC50-4A63-A10C-43800EB01F5A}</ProjectGuid>
+    <ProjectGuid>{0723AECE-0591-430D-81A0-FCBBABCA69F4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>MovieLibrary.WinForms</RootNamespace>
-    <AssemblyName>MovieLibrary.WinForms</AssemblyName>
+    <RootNamespace>CharacterCreators</RootNamespace>
+    <AssemblyName>CharacterCreators</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -52,28 +52,28 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="CharacterCreator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CharacterCreator.Designer.cs">
+      <DependentUpon>CharacterCreator.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MovieForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MovieForm.Designer.cs">
-      <DependentUpon>MovieForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CharacterCreator.resx">
+      <DependentUpon>CharacterCreator.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MovieForm.resx">
-      <DependentUpon>MovieForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -83,7 +83,6 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -99,9 +98,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MovieLibrary.Business\MovieLibrary.Business.csproj">
-      <Project>{47cbb99e-6675-4e1b-9319-b4ba24f57727}</Project>
-      <Name>MovieLibrary.Business</Name>
+    <ProjectReference Include="..\CharacterCreator.Bussiness\CharacterCreator.Bussiness.csproj">
+      <Project>{39ba1c08-62f8-49d6-83b4-ebc7864c18ad}</Project>
+      <Name>CharacterCreator.Bussiness</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
