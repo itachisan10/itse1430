@@ -26,7 +26,7 @@ namespace CharacterCreator.Bussiness
         public static Attribute[] GetAll()
         {
             var items = new Attribute[5];
-            items[0] = new Attribute("Strength ");
+            items[0] = new Attribute("Strength");
             items[1] = new Attribute("Intelligence");
             items[2] = new Attribute("Aguility");
             items[3] = new Attribute("Constitution");

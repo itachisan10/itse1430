@@ -1,4 +1,4 @@
-﻿namespace CharacterCreators
+﻿namespace CharacterCreator.WinForms
 {
     partial class AboutBox
     {
@@ -147,7 +147,7 @@
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 24;
-            this.okButton.Text = "&OK";
+            this.okButton.Text = "Close";
             // 
             // AboutBox
             // 
@@ -161,6 +161,7 @@
             this.MinimizeBox = false;
             this.Name = "AboutBox";
             this.Padding = new System.Windows.Forms.Padding(9);
+            this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

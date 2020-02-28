@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CharacterCreator.Bussiness;
-
+using CharacterCreator.WinForms;
 
 namespace CharacterCreator
 {
@@ -65,7 +65,7 @@ namespace CharacterCreator
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
 
-            //save movie character info 
+            //edit
             _character = child.Character;
         }
 
@@ -83,18 +83,26 @@ namespace CharacterCreator
 
         private void OnExitFile(object sender, EventArgs e)
         {
+            //Close file
             Close();
         }
 
         private void OnAboutHelp(object sender, EventArgs e)
         {
-            //var about = new AboutBox();
+            var about = new AboutBox();
 
-            //about.ShowDialog(this);
+            about.ShowDialog(this);
         }
 
         private Character _character;
 
-        
+        protected override void  OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (_character != null)
+                if (!DisplayConfirmation("Are you sure you want to close?", "Close"))
+                    e.Cancel = true;
+        }
     }
 }

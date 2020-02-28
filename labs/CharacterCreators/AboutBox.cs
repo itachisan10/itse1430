@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CharacterCreators
+namespace CharacterCreator.WinForms
 {
     partial class AboutBox : Form
     {
@@ -16,8 +16,8 @@ namespace CharacterCreators
             InitializeComponent();
             this.Text = String.Format("About {0}", AssemblyTitle);
             this.labelProductName.Text = "Carlos Vargas";
-            this.labelVersion.Text = "Class";
-            this.labelCopyright.Text = "comment";
+            this.labelVersion.Text = "ITSE 1430 Michael Taylor";
+            this.labelCopyright.Text = "Character Creator Project ";
             this.labelCompanyName.Text = AssemblyCompany;
             this.textBoxDescription.Text = AssemblyDescription;
         }

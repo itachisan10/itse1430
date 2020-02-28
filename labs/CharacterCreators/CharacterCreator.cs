@@ -84,13 +84,13 @@ namespace CharacterCreator
         {
             var character = new Character();
 
-            character.Name = txtName.Name?.Trim();
+            character.Name = txtName.Text?.Trim();
             if (ddlProfession.SelectedItem is Profession profession)
                 character.Profession = profession;
             if (ddlRace.SelectedItem is Race race)
                 character.Race = race;
-            //if (ddlAttributes.SelectedItem is Attribute attribute)
-            //    character.Attribute = attribute;
+            if (ddlAttributes.SelectedItem is Bussiness.Attribute attribute)
+                character.Attribute = attribute;
             character.Description = txtDescription.Text?.Trim();
             return character;
 

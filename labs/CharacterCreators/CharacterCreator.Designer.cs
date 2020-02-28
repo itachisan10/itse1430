@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.ddlProfession = new System.Windows.Forms.ComboBox();
@@ -40,6 +41,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtDescription = new System.Windows.Forms.TextBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOk
@@ -47,8 +50,8 @@
             this.btnOk.Location = new System.Drawing.Point(122, 316);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
-            this.btnOk.TabIndex = 0;
-            this.btnOk.Text = "OK";
+            this.btnOk.TabIndex = 5;
+            this.btnOk.Text = "Save";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.OnOk);
             // 
@@ -57,7 +60,7 @@
             this.btnCancel.Location = new System.Drawing.Point(227, 316);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 1;
+            this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.OnCancel);
@@ -68,7 +71,7 @@
             this.ddlProfession.Location = new System.Drawing.Point(169, 88);
             this.ddlProfession.Name = "ddlProfession";
             this.ddlProfession.Size = new System.Drawing.Size(121, 21);
-            this.ddlProfession.TabIndex = 2;
+            this.ddlProfession.TabIndex = 1;
             // 
             // ddlRace
             // 
@@ -76,7 +79,7 @@
             this.ddlRace.Location = new System.Drawing.Point(169, 136);
             this.ddlRace.Name = "ddlRace";
             this.ddlRace.Size = new System.Drawing.Size(121, 21);
-            this.ddlRace.TabIndex = 3;
+            this.ddlRace.TabIndex = 2;
             // 
             // ddlAttributes
             // 
@@ -84,7 +87,7 @@
             this.ddlAttributes.Location = new System.Drawing.Point(169, 182);
             this.ddlAttributes.Name = "ddlAttributes";
             this.ddlAttributes.Size = new System.Drawing.Size(121, 21);
-            this.ddlAttributes.TabIndex = 4;
+            this.ddlAttributes.TabIndex = 3;
             // 
             // label1
             // 
@@ -92,7 +95,7 @@
             this.label1.Location = new System.Drawing.Point(63, 91);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(59, 13);
-            this.label1.TabIndex = 5;
+            this.label1.TabIndex = 8;
             this.label1.Text = "Profession:";
             // 
             // label2
@@ -101,7 +104,7 @@
             this.label2.Location = new System.Drawing.Point(86, 139);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(36, 13);
-            this.label2.TabIndex = 6;
+            this.label2.TabIndex = 9;
             this.label2.Text = "Race:";
             // 
             // label3
@@ -110,7 +113,7 @@
             this.label3.Location = new System.Drawing.Point(68, 185);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(54, 13);
-            this.label3.TabIndex = 7;
+            this.label3.TabIndex = 10;
             this.label3.Text = "Attributes:";
             // 
             // label4
@@ -119,7 +122,7 @@
             this.label4.Location = new System.Drawing.Point(62, 235);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(60, 13);
-            this.label4.TabIndex = 8;
+            this.label4.TabIndex = 11;
             this.label4.Text = "Description";
             // 
             // label5
@@ -128,7 +131,7 @@
             this.label5.Location = new System.Drawing.Point(84, 50);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 13);
-            this.label5.TabIndex = 9;
+            this.label5.TabIndex = 7;
             this.label5.Text = "Name:";
             // 
             // txtName
@@ -136,14 +139,18 @@
             this.txtName.Location = new System.Drawing.Point(169, 47);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(121, 20);
-            this.txtName.TabIndex = 10;
+            this.txtName.TabIndex = 0;
             // 
             // txtDescription
             // 
             this.txtDescription.Location = new System.Drawing.Point(169, 232);
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(121, 20);
-            this.txtDescription.TabIndex = 11;
+            this.txtDescription.TabIndex = 4;
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
             // 
             // CharacterCreator
             // 
@@ -162,10 +169,15 @@
             this.Controls.Add(this.ddlProfession);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
-            this.MaximumSize = new System.Drawing.Size(426, 419);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(425, 418);
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(425, 418);
             this.Name = "CharacterCreator";
-            this.Text = "CharacterCreator";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Create New Character";
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -185,5 +197,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.TextBox txtDescription;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
