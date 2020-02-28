@@ -34,33 +34,48 @@
             this.ddlProfession = new System.Windows.Forms.ComboBox();
             this.ddlRace = new System.Windows.Forms.ComboBox();
             this.ddlAttributes = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.txtProfession = new System.Windows.Forms.Label();
+            this.txtRace = new System.Windows.Forms.Label();
+            this.txtAttribute = new System.Windows.Forms.Label();
+            this.txtDesc = new System.Windows.Forms.Label();
+            this.txtNames = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtDescription = new System.Windows.Forms.TextBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.dwStrength = new System.Windows.Forms.NumericUpDown();
+            this.dwIntelligence = new System.Windows.Forms.NumericUpDown();
+            this.dwAguility = new System.Windows.Forms.NumericUpDown();
+            this.dwConstitution = new System.Windows.Forms.NumericUpDown();
+            this.dwCharisma = new System.Windows.Forms.NumericUpDown();
+            this.txtStrength = new System.Windows.Forms.Label();
+            this.txtIntelligence = new System.Windows.Forms.Label();
+            this.txtAguility = new System.Windows.Forms.Label();
+            this.txtConstitution = new System.Windows.Forms.Label();
+            this.txtCharisma = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dwStrength)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dwIntelligence)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dwAguility)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dwConstitution)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dwCharisma)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(122, 316);
+            this.btnOk.Location = new System.Drawing.Point(116, 382);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
-            this.btnOk.TabIndex = 5;
+            this.btnOk.TabIndex = 10;
             this.btnOk.Text = "Save";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.OnOk);
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(227, 316);
+            this.btnCancel.Location = new System.Drawing.Point(215, 382);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 6;
+            this.btnCancel.TabIndex = 11;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.OnCancel);
@@ -89,50 +104,50 @@
             this.ddlAttributes.Size = new System.Drawing.Size(121, 21);
             this.ddlAttributes.TabIndex = 3;
             // 
-            // label1
+            // txtProfession
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(63, 91);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 13);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Profession:";
+            this.txtProfession.AutoSize = true;
+            this.txtProfession.Location = new System.Drawing.Point(63, 91);
+            this.txtProfession.Name = "txtProfession";
+            this.txtProfession.Size = new System.Drawing.Size(59, 13);
+            this.txtProfession.TabIndex = 13;
+            this.txtProfession.Text = "Profession:";
             // 
-            // label2
+            // txtRace
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(86, 139);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(36, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Race:";
+            this.txtRace.AutoSize = true;
+            this.txtRace.Location = new System.Drawing.Point(86, 139);
+            this.txtRace.Name = "txtRace";
+            this.txtRace.Size = new System.Drawing.Size(36, 13);
+            this.txtRace.TabIndex = 14;
+            this.txtRace.Text = "Race:";
             // 
-            // label3
+            // txtAttribute
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(68, 185);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(54, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Attributes:";
+            this.txtAttribute.AutoSize = true;
+            this.txtAttribute.Location = new System.Drawing.Point(68, 185);
+            this.txtAttribute.Name = "txtAttribute";
+            this.txtAttribute.Size = new System.Drawing.Size(49, 13);
+            this.txtAttribute.TabIndex = 15;
+            this.txtAttribute.Text = "Attribute:";
             // 
-            // label4
+            // txtDesc
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(62, 235);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(60, 13);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "Description";
+            this.txtDesc.AutoSize = true;
+            this.txtDesc.Location = new System.Drawing.Point(62, 235);
+            this.txtDesc.Name = "txtDesc";
+            this.txtDesc.Size = new System.Drawing.Size(63, 13);
+            this.txtDesc.TabIndex = 16;
+            this.txtDesc.Text = "Description:";
             // 
-            // label5
+            // txtNames
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(84, 50);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(38, 13);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Name:";
+            this.txtNames.AutoSize = true;
+            this.txtNames.Location = new System.Drawing.Point(84, 50);
+            this.txtNames.Name = "txtNames";
+            this.txtNames.Size = new System.Drawing.Size(38, 13);
+            this.txtNames.TabIndex = 12;
+            this.txtNames.Text = "Name:";
             // 
             // txtName
             // 
@@ -152,32 +167,165 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // dwStrength
+            // 
+            this.dwStrength.Location = new System.Drawing.Point(27, 329);
+            this.dwStrength.Minimum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.dwStrength.Name = "dwStrength";
+            this.dwStrength.Size = new System.Drawing.Size(46, 20);
+            this.dwStrength.TabIndex = 5;
+            this.dwStrength.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            // 
+            // dwIntelligence
+            // 
+            this.dwIntelligence.Location = new System.Drawing.Point(92, 329);
+            this.dwIntelligence.Minimum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.dwIntelligence.Name = "dwIntelligence";
+            this.dwIntelligence.Size = new System.Drawing.Size(41, 20);
+            this.dwIntelligence.TabIndex = 6;
+            this.dwIntelligence.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            // 
+            // dwAguility
+            // 
+            this.dwAguility.Location = new System.Drawing.Point(153, 329);
+            this.dwAguility.Minimum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.dwAguility.Name = "dwAguility";
+            this.dwAguility.Size = new System.Drawing.Size(38, 20);
+            this.dwAguility.TabIndex = 7;
+            this.dwAguility.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            // 
+            // dwConstitution
+            // 
+            this.dwConstitution.Location = new System.Drawing.Point(215, 329);
+            this.dwConstitution.Minimum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.dwConstitution.Name = "dwConstitution";
+            this.dwConstitution.Size = new System.Drawing.Size(46, 20);
+            this.dwConstitution.TabIndex = 8;
+            this.dwConstitution.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            // 
+            // dwCharisma
+            // 
+            this.dwCharisma.Location = new System.Drawing.Point(281, 329);
+            this.dwCharisma.Name = "dwCharisma";
+            this.dwCharisma.Size = new System.Drawing.Size(42, 20);
+            this.dwCharisma.TabIndex = 9;
+            // 
+            // txtStrength
+            // 
+            this.txtStrength.AutoSize = true;
+            this.txtStrength.Location = new System.Drawing.Point(24, 287);
+            this.txtStrength.Name = "txtStrength";
+            this.txtStrength.Size = new System.Drawing.Size(47, 13);
+            this.txtStrength.TabIndex = 17;
+            this.txtStrength.Text = "Strength";
+            // 
+            // txtIntelligence
+            // 
+            this.txtIntelligence.AutoSize = true;
+            this.txtIntelligence.Location = new System.Drawing.Point(80, 287);
+            this.txtIntelligence.Name = "txtIntelligence";
+            this.txtIntelligence.Size = new System.Drawing.Size(61, 13);
+            this.txtIntelligence.TabIndex = 18;
+            this.txtIntelligence.Text = "Intelligence";
+            // 
+            // txtAguility
+            // 
+            this.txtAguility.AutoSize = true;
+            this.txtAguility.Location = new System.Drawing.Point(147, 287);
+            this.txtAguility.Name = "txtAguility";
+            this.txtAguility.Size = new System.Drawing.Size(40, 13);
+            this.txtAguility.TabIndex = 19;
+            this.txtAguility.Text = "Aguility";
+            // 
+            // txtConstitution
+            // 
+            this.txtConstitution.AutoSize = true;
+            this.txtConstitution.Location = new System.Drawing.Point(199, 287);
+            this.txtConstitution.Name = "txtConstitution";
+            this.txtConstitution.Size = new System.Drawing.Size(62, 13);
+            this.txtConstitution.TabIndex = 20;
+            this.txtConstitution.Text = "Constitution";
+            // 
+            // txtCharisma
+            // 
+            this.txtCharisma.AutoSize = true;
+            this.txtCharisma.Location = new System.Drawing.Point(278, 287);
+            this.txtCharisma.Name = "txtCharisma";
+            this.txtCharisma.Size = new System.Drawing.Size(50, 13);
+            this.txtCharisma.TabIndex = 21;
+            this.txtCharisma.Text = "Charisma";
+            // 
             // CharacterCreator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(409, 379);
+            this.ClientSize = new System.Drawing.Size(409, 441);
+            this.Controls.Add(this.txtCharisma);
+            this.Controls.Add(this.txtConstitution);
+            this.Controls.Add(this.txtAguility);
+            this.Controls.Add(this.txtIntelligence);
+            this.Controls.Add(this.txtStrength);
+            this.Controls.Add(this.dwCharisma);
+            this.Controls.Add(this.dwConstitution);
+            this.Controls.Add(this.dwAguility);
+            this.Controls.Add(this.dwIntelligence);
+            this.Controls.Add(this.dwStrength);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.txtName);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtNames);
+            this.Controls.Add(this.txtDesc);
+            this.Controls.Add(this.txtAttribute);
+            this.Controls.Add(this.txtRace);
+            this.Controls.Add(this.txtProfession);
             this.Controls.Add(this.ddlAttributes);
             this.Controls.Add(this.ddlRace);
             this.Controls.Add(this.ddlProfession);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(425, 418);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(425, 418);
             this.Name = "CharacterCreator";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Create New Character";
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dwStrength)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dwIntelligence)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dwAguility)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dwConstitution)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dwCharisma)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -190,13 +338,23 @@
         private System.Windows.Forms.ComboBox ddlProfession;
         private System.Windows.Forms.ComboBox ddlRace;
         private System.Windows.Forms.ComboBox ddlAttributes;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label txtProfession;
+        private System.Windows.Forms.Label txtRace;
+        private System.Windows.Forms.Label txtAttribute;
+        private System.Windows.Forms.Label txtDesc;
+        private System.Windows.Forms.Label txtNames;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.NumericUpDown dwCharisma;
+        private System.Windows.Forms.NumericUpDown dwConstitution;
+        private System.Windows.Forms.NumericUpDown dwAguility;
+        private System.Windows.Forms.NumericUpDown dwIntelligence;
+        private System.Windows.Forms.NumericUpDown dwStrength;
+        private System.Windows.Forms.Label txtCharisma;
+        private System.Windows.Forms.Label txtConstitution;
+        private System.Windows.Forms.Label txtAguility;
+        private System.Windows.Forms.Label txtIntelligence;
+        private System.Windows.Forms.Label txtStrength;
     }
 }
