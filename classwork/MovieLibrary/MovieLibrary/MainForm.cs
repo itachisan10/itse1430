@@ -79,8 +79,7 @@ namespace MovieLibrary
             movie = new Movie();
         }
         #endregion
-
-
+       
         private void OnMovieAdd ( object sender, EventArgs e )
         {
             MovieForm child = new MovieForm();
@@ -92,38 +91,17 @@ namespace MovieLibrary
                 return;
 
             //TODO: Save the movie
-            AddMovie(child.Movie);
+            _movies.Add(child.Movie);
             UpdateUI();
         }
         private void UpdateUI ()
         {
             lstMovies.Items.Clear();
 
-            var movies = GetMovies();
-            foreach (var movie in movies)
-            {
-                //ListBox cannot take a null object 
-                if (movie != null)
-                    lstMovies.Items.Add(movie);
-            };
+            var movies = _movies.GetAll();
+           
         }
-        private void AddMovie ( Movie movie )
-        {
-            //created 02/26/20
-            for (var index = 0; index < _movies.Length; ++index)
-            {
-                if (_movies[index] == null)
-                {
-                    _movies[index] = movie;
-                    break;
-                };
-            };
-        }
-        private Movie[] GetMovies ()
-        {
-            return _movies;
-        }
-
+            
         protected override void OnLoad ( EventArgs e )
         {
             base.OnLoad(e);
@@ -134,31 +112,7 @@ namespace MovieLibrary
         {
             return lstMovies.SelectedItem as Movie;
         }
-        private void UpdateMovie ( Movie oldMovie, Movie newMovie )
-        {
-            for (var index = 0; index < _movies.Length; ++index)
-            {
-                if (_movies[index] == oldMovie)
-                {
-                    _movies[index] = newMovie;
-                    break;
-                };
-            };
-
-        }
-        private void DeleteMovie ( Movie movie )
-        {
-            for (var index = 0; index < _movies.Length; ++index)
-            {
-                if (_movies[index] == movie)
-                {
-                    _movies[index] = null;
-                    break;
-                };
-            };
-            UpdateUI();
-        }
-
+        
         private void OnMovieEdit ( object sender, EventArgs e )
         {
             //Verify movie
@@ -172,11 +126,10 @@ namespace MovieLibrary
                 return;
 
             //TODO: Save the movie
-            UpdateMovie(movie, child.Movie);
+            _movies.Update(movie, child.Movie);
             UpdateUI();
         }
-
-
+        
         private void OnMovieDelete ( object sender, EventArgs e )
         {
             //Verify movie
@@ -189,7 +142,7 @@ namespace MovieLibrary
                 return;
 
             //TODO: Delete
-            DeleteMovie(movie);
+            _movies.Delete(movie);
         }
 
         private void OnFileExit ( object sender, EventArgs e )
@@ -203,15 +156,13 @@ namespace MovieLibrary
 
             about.ShowDialog(this);
         }
-
-
-
+        
         private void MainForm_Load ( object sender, EventArgs e )
         {
 
         }
 
-        private Movie[] _movies = new Movie[100];
+        private readonly MovieDatabase _movies = new MovieDatabase();
     }
 }
 //Classes are not primitives 
