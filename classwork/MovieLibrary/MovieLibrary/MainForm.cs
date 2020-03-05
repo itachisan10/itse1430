@@ -19,7 +19,7 @@ namespace MovieLibrary
         public MainForm ()
         {
             InitializeComponent();
-
+            _movies = new MemoryMovieDatabase();
             #region Playing with objects
 
             //Full name
@@ -79,32 +79,44 @@ namespace MovieLibrary
             movie = new Movie();
         }
         #endregion
-       
+
         private void OnMovieAdd ( object sender, EventArgs e )
         {
             MovieForm child = new MovieForm();
 
+            do
+            {
+                //child.Show(); //Modeless, both windows are interactive
+                //Modal - must dismiss child form before main form is accessible
+                if (child.ShowDialog(this) != DialogResult.OK)
+                    return;
 
-            //child.Show(); //Modeless, both windows are interactive
-            //Modal - must dismiss child form before main form is accessible
-            if (child.ShowDialog(this) != DialogResult.OK)
-                return;
-
-            //TODO: Save the movie
-            _movies.Add(child.Movie);
-            UpdateUI();
+                //TODO: Save the movie
+                var movie = _movies.Add(child.Movie);
+                if (movie != null)
+                {
+                    UpdateUI();
+                    return;
+                };
+                DisplayError("Add failed");
+            } while (true);
         }
         private void UpdateUI ()
         {
             lstMovies.Items.Clear();
 
             var movies = _movies.GetAll();
-           
+            foreach(var movie in movies)
+            {
+                lstMovies.Items.Add(movie);
+            }
+
         }
-            
+
         protected override void OnLoad ( EventArgs e )
         {
             base.OnLoad(e);
+            new SeedDatabase().SeedIfEmpty(_movies);
             UpdateUI();
         }
 
@@ -112,7 +124,7 @@ namespace MovieLibrary
         {
             return lstMovies.SelectedItem as Movie;
         }
-        
+
         private void OnMovieEdit ( object sender, EventArgs e )
         {
             //Verify movie
@@ -122,14 +134,24 @@ namespace MovieLibrary
 
             var child = new MovieForm();
             child.Movie = movie;
-            if (child.ShowDialog(this) != DialogResult.OK)
-                return;
+            do
+            {
+                if (child.ShowDialog(this) != DialogResult.OK)
+                    return;
 
-            //TODO: Save the movie
-            _movies.Update(movie, child.Movie);
-            UpdateUI();
+                //TODO: Save the movie
+                var error = _movies.Update(movie.Id, child.Movie);
+                if (!String.IsNullOrEmpty(error))
+                {
+                    UpdateUI();
+                    return;
+                };
+
+                DisplayError(error);
+            } while (true);
         }
-        
+
+
         private void OnMovieDelete ( object sender, EventArgs e )
         {
             //Verify movie
@@ -142,7 +164,7 @@ namespace MovieLibrary
                 return;
 
             //TODO: Delete
-            _movies.Delete(movie);
+            _movies.Delete(movie.Id);
         }
 
         private void OnFileExit ( object sender, EventArgs e )
@@ -156,13 +178,13 @@ namespace MovieLibrary
 
             about.ShowDialog(this);
         }
-        
+
         private void MainForm_Load ( object sender, EventArgs e )
         {
 
         }
 
-        private readonly MovieDatabase _movies = new MovieDatabase();
+        private readonly IMovieDatabase _movies;
     }
 }
 //Classes are not primitives 
