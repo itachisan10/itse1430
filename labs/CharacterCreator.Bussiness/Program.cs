@@ -1,4 +1,8 @@
-﻿using System;
+﻿//Carlos Vargas
+//ITSE-1430
+//Character Creator
+//03/07/2020
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,9 +18,9 @@ namespace CharacterCreator.Bussiness
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new Form1());
         }
     }
 }

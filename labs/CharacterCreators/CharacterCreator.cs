@@ -1,4 +1,8 @@
-﻿using System;
+﻿//Carlos Vargas
+//ITSE-1430
+//Character Creator
+//03/07/2020
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -60,8 +64,7 @@ namespace CharacterCreator
             ddlRace.Items.AddRange(races);
 
             var attributes = Attributes.GetAll();
-            ddlAttributes.Items.AddRange(attributes);
-
+          
             var professions = Professions.GetAll();
             ddlProfession.Items.AddRange(professions);
 
@@ -72,8 +75,7 @@ namespace CharacterCreator
 
                 if (Character.Race != null)
                     ddlRace.SelectedText = Character.Race.Description;
-                if (Character.Attribute != null)
-                    ddlAttributes.SelectedText = Character.Attribute.Description;
+
                 if (Character.Profession != null)
                     ddlProfession.SelectedText = Character.Profession.Description;
 
@@ -89,29 +91,11 @@ namespace CharacterCreator
                 character.Profession = profession;
             if (ddlRace.SelectedItem is Race race)
                 character.Race = race;
-            if (ddlAttributes.SelectedItem is Bussiness.Attribute attribute)
-                character.Attribute = attribute;
             character.Description = txtDescription.Text?.Trim();
             return character;
 
         }
 
-        private int GetAsInt32(Control control)
-        {
-            return GetAsInt32(control, 0);
-        }
-
-        private int GetAsInt32(Control control, int emptyValue)
-        {
-            //if users doesnt enter anything 0 will be displayed
-            if (String.IsNullOrEmpty(control.Text))
-                return emptyValue;
-            //taking a string and trying to turn it into an int
-            if (Int32.TryParse(control.Text, out var result))
-                return result;
-
-            return -1;
-        }
         void DisplayError(string message)
         {
             //var that = this;

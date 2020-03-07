@@ -1,4 +1,9 @@
-﻿using System;
+﻿//Carlos Vargas
+//ITSE-1430
+//Character Creator
+//03/07/2020
+//Character.cs
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

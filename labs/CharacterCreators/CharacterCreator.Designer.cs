@@ -33,10 +33,8 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.ddlProfession = new System.Windows.Forms.ComboBox();
             this.ddlRace = new System.Windows.Forms.ComboBox();
-            this.ddlAttributes = new System.Windows.Forms.ComboBox();
             this.txtProfession = new System.Windows.Forms.Label();
             this.txtRace = new System.Windows.Forms.Label();
-            this.txtAttribute = new System.Windows.Forms.Label();
             this.txtDesc = new System.Windows.Forms.Label();
             this.txtNames = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
@@ -62,7 +60,7 @@
             // 
             // btnOk
             // 
-            this.btnOk.Location = new System.Drawing.Point(116, 382);
+            this.btnOk.Location = new System.Drawing.Point(103, 345);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(75, 23);
             this.btnOk.TabIndex = 10;
@@ -72,7 +70,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(215, 382);
+            this.btnCancel.Location = new System.Drawing.Point(202, 345);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 11;
@@ -96,14 +94,6 @@
             this.ddlRace.Size = new System.Drawing.Size(121, 21);
             this.ddlRace.TabIndex = 2;
             // 
-            // ddlAttributes
-            // 
-            this.ddlAttributes.FormattingEnabled = true;
-            this.ddlAttributes.Location = new System.Drawing.Point(169, 182);
-            this.ddlAttributes.Name = "ddlAttributes";
-            this.ddlAttributes.Size = new System.Drawing.Size(121, 21);
-            this.ddlAttributes.TabIndex = 3;
-            // 
             // txtProfession
             // 
             this.txtProfession.AutoSize = true;
@@ -122,19 +112,10 @@
             this.txtRace.TabIndex = 14;
             this.txtRace.Text = "Race:";
             // 
-            // txtAttribute
-            // 
-            this.txtAttribute.AutoSize = true;
-            this.txtAttribute.Location = new System.Drawing.Point(68, 185);
-            this.txtAttribute.Name = "txtAttribute";
-            this.txtAttribute.Size = new System.Drawing.Size(49, 13);
-            this.txtAttribute.TabIndex = 15;
-            this.txtAttribute.Text = "Attribute:";
-            // 
             // txtDesc
             // 
             this.txtDesc.AutoSize = true;
-            this.txtDesc.Location = new System.Drawing.Point(62, 235);
+            this.txtDesc.Location = new System.Drawing.Point(59, 180);
             this.txtDesc.Name = "txtDesc";
             this.txtDesc.Size = new System.Drawing.Size(63, 13);
             this.txtDesc.TabIndex = 16;
@@ -158,7 +139,7 @@
             // 
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(169, 232);
+            this.txtDescription.Location = new System.Drawing.Point(169, 177);
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(121, 20);
             this.txtDescription.TabIndex = 4;
@@ -169,7 +150,7 @@
             // 
             // dwStrength
             // 
-            this.dwStrength.Location = new System.Drawing.Point(27, 329);
+            this.dwStrength.Location = new System.Drawing.Point(25, 280);
             this.dwStrength.Minimum = new decimal(new int[] {
             50,
             0,
@@ -186,7 +167,7 @@
             // 
             // dwIntelligence
             // 
-            this.dwIntelligence.Location = new System.Drawing.Point(92, 329);
+            this.dwIntelligence.Location = new System.Drawing.Point(81, 280);
             this.dwIntelligence.Minimum = new decimal(new int[] {
             50,
             0,
@@ -203,7 +184,7 @@
             // 
             // dwAguility
             // 
-            this.dwAguility.Location = new System.Drawing.Point(153, 329);
+            this.dwAguility.Location = new System.Drawing.Point(152, 280);
             this.dwAguility.Minimum = new decimal(new int[] {
             50,
             0,
@@ -220,7 +201,7 @@
             // 
             // dwConstitution
             // 
-            this.dwConstitution.Location = new System.Drawing.Point(215, 329);
+            this.dwConstitution.Location = new System.Drawing.Point(215, 280);
             this.dwConstitution.Minimum = new decimal(new int[] {
             50,
             0,
@@ -237,7 +218,7 @@
             // 
             // dwCharisma
             // 
-            this.dwCharisma.Location = new System.Drawing.Point(281, 329);
+            this.dwCharisma.Location = new System.Drawing.Point(281, 280);
             this.dwCharisma.Name = "dwCharisma";
             this.dwCharisma.Size = new System.Drawing.Size(42, 20);
             this.dwCharisma.TabIndex = 9;
@@ -245,7 +226,7 @@
             // txtStrength
             // 
             this.txtStrength.AutoSize = true;
-            this.txtStrength.Location = new System.Drawing.Point(24, 287);
+            this.txtStrength.Location = new System.Drawing.Point(24, 241);
             this.txtStrength.Name = "txtStrength";
             this.txtStrength.Size = new System.Drawing.Size(47, 13);
             this.txtStrength.TabIndex = 17;
@@ -254,7 +235,7 @@
             // txtIntelligence
             // 
             this.txtIntelligence.AutoSize = true;
-            this.txtIntelligence.Location = new System.Drawing.Point(80, 287);
+            this.txtIntelligence.Location = new System.Drawing.Point(72, 241);
             this.txtIntelligence.Name = "txtIntelligence";
             this.txtIntelligence.Size = new System.Drawing.Size(61, 13);
             this.txtIntelligence.TabIndex = 18;
@@ -263,7 +244,7 @@
             // txtAguility
             // 
             this.txtAguility.AutoSize = true;
-            this.txtAguility.Location = new System.Drawing.Point(147, 287);
+            this.txtAguility.Location = new System.Drawing.Point(150, 241);
             this.txtAguility.Name = "txtAguility";
             this.txtAguility.Size = new System.Drawing.Size(40, 13);
             this.txtAguility.TabIndex = 19;
@@ -272,7 +253,7 @@
             // txtConstitution
             // 
             this.txtConstitution.AutoSize = true;
-            this.txtConstitution.Location = new System.Drawing.Point(199, 287);
+            this.txtConstitution.Location = new System.Drawing.Point(199, 241);
             this.txtConstitution.Name = "txtConstitution";
             this.txtConstitution.Size = new System.Drawing.Size(62, 13);
             this.txtConstitution.TabIndex = 20;
@@ -281,7 +262,7 @@
             // txtCharisma
             // 
             this.txtCharisma.AutoSize = true;
-            this.txtCharisma.Location = new System.Drawing.Point(278, 287);
+            this.txtCharisma.Location = new System.Drawing.Point(278, 241);
             this.txtCharisma.Name = "txtCharisma";
             this.txtCharisma.Size = new System.Drawing.Size(50, 13);
             this.txtCharisma.TabIndex = 21;
@@ -306,10 +287,8 @@
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.txtNames);
             this.Controls.Add(this.txtDesc);
-            this.Controls.Add(this.txtAttribute);
             this.Controls.Add(this.txtRace);
             this.Controls.Add(this.txtProfession);
-            this.Controls.Add(this.ddlAttributes);
             this.Controls.Add(this.ddlRace);
             this.Controls.Add(this.ddlProfession);
             this.Controls.Add(this.btnCancel);
@@ -337,10 +316,8 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.ComboBox ddlProfession;
         private System.Windows.Forms.ComboBox ddlRace;
-        private System.Windows.Forms.ComboBox ddlAttributes;
         private System.Windows.Forms.Label txtProfession;
         private System.Windows.Forms.Label txtRace;
-        private System.Windows.Forms.Label txtAttribute;
         private System.Windows.Forms.Label txtDesc;
         private System.Windows.Forms.Label txtNames;
         private System.Windows.Forms.TextBox txtName;
