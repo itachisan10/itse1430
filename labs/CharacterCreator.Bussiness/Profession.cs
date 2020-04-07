@@ -23,6 +23,8 @@ namespace CharacterCreator.Bussiness
         {
             return Description;
         }
+      
+
     }
 
     public class Professions

@@ -12,17 +12,18 @@ namespace CharacterCreator.Bussiness
 {
     public class Race
     {
-        public Race(string descriptions)
+        public Race ( string descriptions   )
         {
             Description = descriptions ?? "";
         }
 
         public string Description { get; }
 
-        public override string ToString()
+        public override string ToString ()
         {
             return Description;
         }
+
     }
 
     public class Races

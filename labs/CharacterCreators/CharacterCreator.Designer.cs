@@ -164,6 +164,7 @@
             0,
             0,
             0});
+            this.dwStrength.ValueChanged += new System.EventHandler(this.dwStrength_ValueChanged);
             // 
             // dwIntelligence
             // 

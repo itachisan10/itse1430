@@ -2,6 +2,10 @@
 {
     public interface IMovieDatabase
     {
+
+        // properties are allowed 
+        //string Title { get; }
+
         Movie Add ( Movie movie );
         void Delete ( int id );
         Movie Get ( int id );

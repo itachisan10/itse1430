@@ -5,15 +5,16 @@
 //Character.cs
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CharacterCreator.Bussiness
 {
-    public class Character
+    public class Character : IValidatableObject
     {
-
+        public int Id { get; set; }
         public Profession Profession { get; set; }
         public Race Race { get; set; }
         public Attribute Attribute { get; set; }
@@ -31,25 +32,28 @@ namespace CharacterCreator.Bussiness
         }
         private string _description;
 
-        
+        public override string ToString () => Name;
 
-        public bool Validate(out string error)
+        public IEnumerable<ValidationResult> Validate ( ValidationContext validationContect )
         {
             if (String.IsNullOrEmpty(Name))
             {
-                error = "Character required.";
-                return false;
-            };
-
-            if (String.IsNullOrEmpty(Description))
+                yield return new ValidationResult("Name is required", new[] { nameof(Name) });
+            }
+            if (Profession == null)
             {
-                error = "Character required.";
-                return false;
-            };
+                yield return new ValidationResult("Professsion is required", new[] { nameof(Profession) });
+            }
+            if (Race == null)
+            {
+                yield return new ValidationResult("Race is required", new[] { nameof(Race) });
+            }
+          
 
-            error = null;
-            return true;
+
         }
+
+        
     }
 }
     

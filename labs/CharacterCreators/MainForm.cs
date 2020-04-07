@@ -12,15 +12,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CharacterCreator.Bussiness;
+using CharacterCreator.Bussiness.Memory;
 using CharacterCreator.WinForms;
 
 namespace CharacterCreator
 {
     public partial class MainForm : Form
     {
+
+        private readonly ICharacterRoster _characters;
         public MainForm()
         {
             InitializeComponent();
+
+            _character = new MemoryCharacterDatabase();
         }
 
         private bool DisplayConfirmation(string message, string name)
@@ -51,38 +56,88 @@ namespace CharacterCreator
         {
             CharacterCreator child = new CharacterCreator();
 
-            if (child.ShowDialog(this) != DialogResult.OK)
-                return;
+            do
+            {
+                if (child.ShowDialog(this)  != DialogResult.OK)
+                    return;
 
-            //save character info 
-            _character = child.Character;
+                var character = _characters.Add(child.Character);
+                if (character != null)
+                {
+                    UpdateUI();
+                    return;
+                }
+                DisplayError("Failed");
+            } while (true);
         }
 
+        protected override void OnLoad (EventArgs e)
+        {
+            base.OnLoad(e);
+
+            _characters.SeedIfEmpty();
+
+            UpdateUI();
+        }
+
+        private Character GetSelectedCharacter ()
+        {
+            return listCharacters.SelectedItem as Character;
+        }
+
+        private void UpdateUI ()
+        {
+            listCharacters.Items.Clear();
+
+            var characters = from character in _characters.GetAll()
+                             where character.Id > 0
+                             orderby character.Name descending
+                             select character;
+
+            listCharacters.Items.AddRange(characters.ToArray());
+
+        }
         private void OnEditCharacter(object sender, EventArgs e)
         {
-            var child = new CharacterCreator();
-            if (_character == null)
+            var character = GetSelectedCharacter();
+            if (character == null)
                 return;
 
+            var child = new MainForm();
+            child._character = character;
 
-            child.Character = _character;
-            if (child.ShowDialog(this) != DialogResult.OK)
-                return;
+            do
+            {
+                if (child.ShowDialog(this) != DialogResult.OK)
+                    return;
 
-            //edit
-            _character = child.Character;
+                var error = _characters.Update(character.Id, child._character);
+                if (String.IsNullOrEmpty(error))
+                {
+                    UpdateUI();
+                    return;
+
+                }
+                DisplayError( error);
+
+            } while (true);
+
+
+            
         }
 
         private void OnDeleteCharacter(object sender, EventArgs e)
         {
-            if (_character == null)
+            var character = GetSelectedCharacter();
+
+            if (character == null)
                 return;
 
-            if (!DisplayConfirmation($"Are you sure you want to delete {_character.Name}?", "Delete"))
+            if (!DisplayConfirmation($"Are you sure you want to delete {character.Name}?", "DELETE"))
                 return;
 
-            //Delete
-            _character = null;
+            _characters.Delete(character.Id);
+            UpdateUI();
         }
 
         private void OnExitFile(object sender, EventArgs e)
@@ -108,5 +163,7 @@ namespace CharacterCreator
                 if (!DisplayConfirmation("Are you sure you want to close?", "Close"))
                     e.Cancel = true;
         }
+
+      
     }
 }

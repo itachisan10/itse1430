@@ -109,7 +109,7 @@ namespace MovieLibrary
             foreach(var movie in movies)
             {
                 lstMovies.Items.Add(movie);
-            }
+            };
 
         }
 

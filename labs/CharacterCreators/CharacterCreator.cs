@@ -44,13 +44,18 @@ namespace CharacterCreator
 
         private void OnOk(object sender, EventArgs e)
         {
-            var character = GetCharacter();
-            if (!character.Validate(out var error))
-            {
-                DisplayError(error);
+            if (!ValidateChildren())
                 return;
-            }
 
+            var character = GetCharacter();
+            var errors = ObjectValidator.Validate(character);
+
+            if (errors.Any())
+            {
+                DisplayError("ERROR");
+                return;
+
+            }
             Character = character;
             DialogResult = DialogResult.OK;
             Close();
@@ -111,6 +116,9 @@ namespace CharacterCreator
             Close(); //<- dismisses form 
         }
 
+        private void dwStrength_ValueChanged ( object sender, EventArgs e )
+        {
 
+        }
     }
 }
