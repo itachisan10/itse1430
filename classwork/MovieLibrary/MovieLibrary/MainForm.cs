@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Linq; //Language integrated natural query 
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MovieLibrary.Business;
+using MovieLibrary.Business.Memory;
 using MovieLibrary.WinForms;
+using MovieLibrary.Business.FileSystems;
 
 namespace MovieLibrary
 {
@@ -19,6 +21,7 @@ namespace MovieLibrary
         public MainForm ()
         {
             InitializeComponent();
+
             _movies = new MemoryMovieDatabase();
             #region Playing with objects
 
@@ -101,28 +104,88 @@ namespace MovieLibrary
                 DisplayError("Add failed");
             } while (true);
         }
+
+        //private string SortByTitle ( Movie movie ) => movie.Title;
+        //private int SortByReleaseYear ( Movie movie ) => movie.ReleaseYear;
+
         private void UpdateUI ()
         {
             lstMovies.Items.Clear();
 
-            var movies = _movies.GetAll();
-            foreach(var movie in movies)
+            //Extension method Approach 
+            //var movies = _movies.GetAll()
+            //                    .OrderBy(movie =>movie.Title) //IEnumerable<T> OrderBy<T> (this IEnumeralbe<T> source, Func<T>, string sorter);
+            //                    .ThenBy(movie => movie.ReleaseYear);
+
+            //Error handling = try - catch block
+            //try
+            //{ S* }
+            //catch(T id)
+            //{ S* }
+            //
+            //
+            var movies = Enumerable.Empty<Movie>();
+            try 
             {
-                lstMovies.Items.Add(movie);
+                movies = _movies.GetAll();
+            } 
+            catch (Exception e)
+            { 
+                DisplayError($"Failed to load movies: {e.Message}");
             };
+            //LINQ syntax
+            //from
+            //select
+            movies = from movie in movies
+                         where movie.Id > 0
+                         orderby movie.Title, movie.ReleaseYear descending 
+                         select movie;
+
+
+            lstMovies.Items.AddRange(movies.ToArray());
+            //foreach (var movie in movies)
+            //{
+            //    lstMovies.Items.Add(movie);
+            //};
 
         }
 
         protected override void OnLoad ( EventArgs e )
         {
-            base.OnLoad(e);
-            new SeedDatabase().SeedIfEmpty(_movies);
+           base.OnLoad(e);
+
+            _movies = new FileMovieDatabase("movies.csv");
+            //SeedDatabase.SeedIfEmpty(_movies);
+            //call extension methoed as thougth it is an instance Discover it.
+            try
+            {
+                _movies.SeedIfEmpty();
+            } catch (InvalidOperationException)
+            {
+                DisplayError("Invalid OP");
+            } catch (ArgumentException)
+            {
+                DisplayError("Invalid argument");
+            } catch( Exception ex)
+            {
+                DisplayError(ex.Message);
+            }
             UpdateUI();
         }
 
         private Movie GetSelectedMovie ()
         {
-            return lstMovies.SelectedItem as Movie;
+            //preferred
+            //return lstMovies.SelectedItem as Movie;
+
+            var selectedItems = lstMovies.SelectedItems.OfType<Movie>();
+
+            //T? FirstOrDefault (This IEnumerable<T>) :: returns first item that meets criteria or default for type if none
+            //T? LastOrDefault (this IEnumerable<T>) :: returns last item that meets criteria or default for tpe if none; not always supported 
+
+            //T First (this IEnumerable<T>) :: returns first item that meets criteria or blows up 
+            //T Last (this IEnumerable<T>) :: returns last item that meets criteria or blows up 
+            return selectedItems.FirstOrDefault();
         }
 
         private void OnMovieEdit ( object sender, EventArgs e )
@@ -150,7 +213,6 @@ namespace MovieLibrary
                 DisplayError(error);
             } while (true);
         }
-
 
         private void OnMovieDelete ( object sender, EventArgs e )
         {
@@ -184,7 +246,7 @@ namespace MovieLibrary
 
         }
 
-        private readonly IMovieDatabase _movies;
+        private IMovieDatabase _movies;
     }
 }
 //Classes are not primitives 
