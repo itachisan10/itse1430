@@ -11,7 +11,7 @@ namespace MovieLibrary.Business.FileSystems
     {
         public FileMovieDatabase ( string filename )
         {
-            if (filename ==null)
+            if (filename == null)
                 throw new ArgumentNullException(nameof(filename));
             if (String.IsNullOrEmpty(filename))
                 throw new ArgumentException("File name cannot be empty", nameof(filename));

@@ -11,6 +11,8 @@ using MovieLibrary.Business;
 using MovieLibrary.Business.Memory;
 using MovieLibrary.WinForms;
 using MovieLibrary.Business.FileSystems;
+using System.Configuration;
+using MovieLibrary.Business.SqlServer;
 
 namespace MovieLibrary
 {
@@ -153,23 +155,27 @@ namespace MovieLibrary
         protected override void OnLoad ( EventArgs e )
         {
            base.OnLoad(e);
+            
+            var connString = ConfigurationManager.ConnectionStrings["MovieDatabase"];
+            _movies = new SqlMovieDatabase(connString.ConnectionString);
 
-            _movies = new FileMovieDatabase("movies.csv");
+            //new System.Data.SqlClient.SqlConnection(connString.ConnectionString).Open();
             //SeedDatabase.SeedIfEmpty(_movies);
             //call extension methoed as thougth it is an instance Discover it.
-            try
-            {
-                _movies.SeedIfEmpty();
-            } catch (InvalidOperationException)
-            {
-                DisplayError("Invalid OP");
-            } catch (ArgumentException)
-            {
-                DisplayError("Invalid argument");
-            } catch( Exception ex)
-            {
-                DisplayError(ex.Message);
-            }
+            //try
+            //{
+            //    _movies.SeedIfEmpty();
+            //} catch (InvalidOperationException)
+            //{
+            //    DisplayError("Invalid OP");
+            //} catch (ArgumentException)
+            //{
+            //    DisplayError("Invalid argument");
+            //} catch( Exception ex)
+            //{
+            //    DisplayError(ex.Message);
+            //}
+
             UpdateUI();
         }
 
