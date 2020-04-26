@@ -1,9 +1,15 @@
 /*
+ * Carlos Vargas
+ * April 25, 2020
  * ITSE 1430
  */
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Windows.Forms;
+using System.Linq;
+using System.Collections.Generic;
+using System.Data;
 
 namespace Nile.Windows
 {
@@ -70,6 +76,18 @@ namespace Nile.Windows
             };
 
             //TODO: Validate product
+            var context = new ValidationContext(product);
+            var results = product.Validate(context);
+            if (results.Count() > 0)
+            {
+                foreach (var result in results)
+                {
+                    MessageBox.Show(this, result.ErrorMessage,
+                                    "Error", MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                };
+                return;
+            }
 
             Product = product;
             DialogResult = DialogResult.OK;
@@ -96,6 +114,7 @@ namespace Nile.Windows
             } else
                 _errors.SetError(_txtPrice, "");
         }
+       
         #endregion
 
         #region Private Members

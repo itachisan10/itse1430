@@ -1,8 +1,15 @@
 /*
+ * Carlos Vargas
+ * April 25, 2020
  * ITSE 1430
  */
 using System;
 using System.Windows.Forms;
+using System.Configuration;
+using Nile.Stores.Sql;
+using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Nile.Windows
 {
@@ -20,6 +27,9 @@ namespace Nile.Windows
         {
             base.OnLoad(e);
 
+            var connString = ConfigurationManager.ConnectionStrings["ProductDatabase"];
+            _database = new SqlProductDatabase(connString.ConnectionString);
+
             _gridProducts.AutoGenerateColumns = false;
 
             UpdateList();
@@ -31,19 +41,37 @@ namespace Nile.Windows
         {
             Close();
         }
-
         private void OnProductAdd( object sender, EventArgs e )
         {
             var child = new ProductDetailForm("Product Details");
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
 
-            //TODO: Handle errors
-            //Save product
-            _database.Add(child.Product);
-            UpdateList();
+            try
+            {
+                //Save product
+                _database.Add(child.Product);
+                UpdateList();
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (ValidationException ex)
+            {
+                MessageBox.Show(ex.Message, "Validation Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Save failed", "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            };
         }
-
         private void OnProductEdit( object sender, EventArgs e )
         {
             var product = GetSelectedProduct();
@@ -55,7 +83,6 @@ namespace Nile.Windows
 
             EditProduct(product);
         }        
-
         private void OnProductDelete( object sender, EventArgs e )
         {
             var product = GetSelectedProduct();
@@ -63,8 +90,7 @@ namespace Nile.Windows
                 return;
 
             DeleteProduct(product);
-        }        
-                
+        }               
         private void OnEditRow( object sender, DataGridViewCellEventArgs e )
         {
             var grid = sender as DataGridView;
@@ -79,7 +105,6 @@ namespace Nile.Windows
             if (item != null)
                 EditProduct(item);
         }
-
         private void OnKeyDownGrid( object sender, KeyEventArgs e )
         {
             if (e.KeyCode != Keys.Delete)
@@ -92,9 +117,8 @@ namespace Nile.Windows
 			//Don't continue with key
             e.SuppressKeyPress = true;
         }
-
+        
         #endregion
-
         #region Private Members
 
         private void DeleteProduct ( Product product )
@@ -104,12 +128,21 @@ namespace Nile.Windows
                                 "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 return;
 
-            //TODO: Handle errors
-            //Delete product
-            _database.Remove(product.Id);
-            UpdateList();
-        }
+            //Done: Handle errors
+            try
+            {
+                //Delete product
+                _database.Remove(product.Id);
+                UpdateList();
 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Delete failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            };
+            //Delete product 
+
+        }
         private void EditProduct ( Product product )
         {
             var child = new ProductDetailForm("Product Details");
@@ -117,12 +150,31 @@ namespace Nile.Windows
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
 
-            //TODO: Handle errors
-            //Save product
-            _database.Update(child.Product);
-            UpdateList();
+            try
+            {
+                //Save product
+                _database.Update(child.Product);
+                UpdateList();
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (ValidationException ex)
+            {
+                MessageBox.Show(ex.Message, "Validation Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Save failed", "Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            };
         }
-
         private Product GetSelectedProduct ()
         {
             if (_gridProducts.SelectedRows.Count > 0)
@@ -130,15 +182,34 @@ namespace Nile.Windows
 
             return null;
         }
-
         private void UpdateList ()
         {
-            //TODO: Handle errors
+            _bsProducts.Clear();
+            //Handle errors
+            try
+            {
+                var products = _database.GetAll().OrderBy(c => c.Name);
 
-            _bsProducts.DataSource = _database.GetAll();
+                _bsProducts.DataSource = products;
+            }
+            catch (Exception ex)
+            {
+                DisplayError(ex);
+            };
+        }
+        private void DisplayError(Exception ex)
+        {
+            MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private readonly IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
+        private IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
         #endregion
+
+        private void AboutBox(object sender, EventArgs e)
+        {
+            var form = new AboutBox();
+            form.ShowDialog(this);
+        }
     }
+  
 }
