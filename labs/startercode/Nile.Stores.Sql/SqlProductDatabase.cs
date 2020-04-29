@@ -1,10 +1,13 @@
-﻿using System;
+﻿/*
+ * Carlos Vargas
+ * April 25, 2020
+ * ITSE 1430
+ */
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Nile.Stores.Sql
 {
@@ -19,19 +22,20 @@ namespace Nile.Stores.Sql
         protected override Product AddCore ( Product product )
         {
 
-            using (var conn = OpenConnection())
-            using (var cmd = new SqlCommand("AddProduct", conn))
+            using (var conn = OpenConnection())  
             {
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
+                var cmd = new SqlCommand("AddProduct", conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;            
                 cmd.Parameters.AddWithValue("@name", product.Name);
                 cmd.Parameters.AddWithValue("@price", product.Price);
                 cmd.Parameters.AddWithValue("@description", product.Description);
                 cmd.Parameters.AddWithValue("@isDiscontinued", product.IsDiscontinued);
 
-                conn.Open();
-                var result = (decimal)cmd.ExecuteNonQuery();
-                product.Id = Convert.ToInt32(result);
+                var result = cmd.ExecuteScalar();
+
+                var id = Convert.ToInt32(result);
+                product.Id = id;
+
 
                 return product;
             }
@@ -39,19 +43,15 @@ namespace Nile.Stores.Sql
 
         protected override void RemoveCore ( int id )
         {
-            var product = GetCore(id);
-            if (product == null)
-                return;
-
+            
             using (var conn = OpenConnection())
             {
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = "RemoveMovie";
+                cmd.CommandText = "RemoveProduct";
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id", id);
 
-                cmd.Parameters.AddWithValue("@id", GetCore(product.Id));
 
-                conn.Open();
                 cmd.ExecuteNonQuery();
             };
 
@@ -59,74 +59,45 @@ namespace Nile.Stores.Sql
 
         protected override IEnumerable<Product> GetAllCore ()
         {
+            var items = new List<Product>();
             var ds = new DataSet();
 
             //Create a connection and open
             using (var conn = OpenConnection())
             {
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = "GetAllProducts";
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                var cmd = conn.CreateCommand();
+                cmd.CommandText = "GetAllProducts";
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    var da = new SqlDataAdapter() {
-                        SelectCommand = cmd
-                    };
-
-                    da.Fill(ds);
-                };
-            };
+                var da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                da.Fill(ds);
+            }
 
             var table = ds.Tables.OfType<DataTable>().FirstOrDefault();
             if (table != null)
-            {
                 foreach (var row in table.Rows.OfType<DataRow>())
                 {
                     var product = new Product() {
-                        Id = (int)row[0],
-                        Name = row["Name"] as string,
-                        Description = row.Field<string>("Description"),
-                        Price = row.Field<decimal>("Price"),
-                        IsDiscontinued = row.Field<bool>("IsDiscontinued")
+                        Id = row.Field<int>("id"),
+                        Name = row["name"]?.ToString(),
+                        Price = row.Field<decimal>("price"),
+                        Description = row["description"]?.ToString(),
+                        IsDiscontinued = row.Field<bool>("isDiscontinued")
                     };
 
-                    yield return product;
+                    items.Add(product);
                 };
-            };
+
+            List<Product> sorted = items.OrderBy(n => n.Name).ToList();
+            return sorted;
         }
 
         protected override Product GetCore ( int id )
         {
-            using (var conn = OpenConnection())
-            using (var cmd = new SqlCommand("GetProduct", conn))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@id", id);
+            var items = GetAllCore();
 
-                conn.Open();
-                using (var reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        var NameIndex = reader.GetOrdinal("Name");
-                        var PriceIndex = reader.GetOrdinal("Price");
-                        var IsDiscontinuedIndex = reader.GetOrdinal("IsDiscontinued");
-
-                        var product = new Product() {
-                            Id = (int)reader[0],
-                            Name = reader["Name"] as string,
-
-                            Description = !reader.IsDBNull(3) ? reader.GetString(3) : "",
-                            Price = (decimal)reader.GetValue(2),
-                            IsDiscontinued = reader.GetBoolean(4)
-                        };
-
-                        return product;
-                    };
-                };
-            };
-
-            return null;
+            return items.FirstOrDefault(i => i.Id == id);
 
         }
 
@@ -134,23 +105,22 @@ namespace Nile.Stores.Sql
         {
             using (var conn =OpenConnection())
             {
+                var cmd = new SqlCommand("UpdateProduct", conn);
 
-                var cmd = conn.CreateCommand();
-                cmd.CommandText = "UpdateProduct";
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                var id = GetCore(existing.Id);
-                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@id", newItem.Id);
                 cmd.Parameters.AddWithValue("@name", newItem.Name);
-                cmd.Parameters.AddWithValue("@description", newItem.Description);
                 cmd.Parameters.AddWithValue("@price", newItem.Price);
+                cmd.Parameters.AddWithValue("@description", newItem.Description);
                 cmd.Parameters.AddWithValue("@isDiscontinued", newItem.IsDiscontinued);
 
-
-                conn.Open();
                 cmd.ExecuteNonQuery();
-            };
-            return UpdateCore(existing, newItem);
+
+                return newItem;
+            }
+
+
         }
 
         private SqlConnection OpenConnection ()
@@ -159,6 +129,13 @@ namespace Nile.Stores.Sql
             conn.Open();
 
             return conn;
+        }
+
+        protected override Product ProductName ( string name )
+        {
+            var items = GetAllCore();
+
+            return items.FirstOrDefault(p => String.Compare(p.Name, name, true) == 0);
         }
     }
 }

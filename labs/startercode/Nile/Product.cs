@@ -41,9 +41,9 @@ namespace Nile
             return Name;
         }
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+       public IEnumerable<ValidationResult> Validate ( ValidationContext validationContext )
         {
-            //var items = new List<ValidationResult>();
+            var items = new List<ValidationResult>();
             if (Id < 0)
                 yield return new ValidationResult("ID is greater or equal 0", new[] { nameof(Id) });
             if (String.IsNullOrEmpty(Name))

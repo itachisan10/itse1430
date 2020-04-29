@@ -5,6 +5,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Nile.Stores
 {
@@ -67,7 +68,13 @@ namespace Nile.Stores
 
             return CopyProduct(newProduct);
         }
-        
+
+        protected override Product ProductName ( string name )
+        {
+            var items = GetAllCore();
+
+            return items.FirstOrDefault(p => String.Compare(p.Name, name, true) == 0);
+        }
         private Product CopyProduct ( Product product )
         {
             var newProduct = new Product();

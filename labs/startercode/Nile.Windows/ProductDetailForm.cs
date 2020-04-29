@@ -35,7 +35,6 @@ namespace Nile.Windows
         
         /// <summary>Gets or sets the product being shown.</summary>
         public Product Product { get; set; }
-
         protected override void OnLoad ( EventArgs e )
         {
             base.OnLoad(e);
@@ -58,7 +57,6 @@ namespace Nile.Windows
             DialogResult = DialogResult.Cancel;
             Close();
         }
-
         private void OnSave ( object sender, EventArgs e )
         {
             if (!ValidateChildren())
@@ -76,24 +74,12 @@ namespace Nile.Windows
             };
 
             //TODO: Validate product
-            var context = new ValidationContext(product);
-            var results = product.Validate(context);
-            if (results.Count() > 0)
-            {
-                foreach (var result in results)
-                {
-                    MessageBox.Show(this, result.ErrorMessage,
-                                    "Error", MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
-                };
-                return;
-            }
+            ObjectValidator.Validate(product);
 
             Product = product;
             DialogResult = DialogResult.OK;
             Close();
         }
-
         private void OnValidatingName ( object sender, CancelEventArgs e )
         {
             var tb = sender as TextBox;
@@ -102,7 +88,6 @@ namespace Nile.Windows
             else
                 _errors.SetError(tb, "");
         }
-
         private void OnValidatingPrice ( object sender, CancelEventArgs e )
         {
             var tb = sender as TextBox;

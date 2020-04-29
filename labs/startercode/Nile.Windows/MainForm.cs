@@ -49,45 +49,42 @@ namespace Nile.Windows
 
             try
             {
+                ObjectValidator.Validate(child.Product);
+
                 //Save product
                 _database.Add(child.Product);
                 UpdateList();
-            }
-            catch (ArgumentException ex)
+            } catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
+                DisplayError(ex.Message);
             }
-            catch (ValidationException ex)
-            {
-                MessageBox.Show(ex.Message, "Validation Error",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Save failed", "Error",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
-            };
         }
         private void OnProductEdit( object sender, EventArgs e )
         {
             var product = GetSelectedProduct();
             if (product == null)
             {
-                MessageBox.Show("No products available.");
+                DisplayError("No product available.");
                 return;
             };
-
-            EditProduct(product);
+            try
+            {
+                ObjectValidator.Validate(product);
+                EditProduct(product);
+            } catch (Exception ex)
+            {
+                DisplayError(ex.Message);
+            }
         }        
         private void OnProductDelete( object sender, EventArgs e )
         {
             var product = GetSelectedProduct();
             if (product == null)
+            {
+                DisplayError("No product available");
                 return;
+            }
+                
 
             DeleteProduct(product);
         }               
@@ -129,19 +126,11 @@ namespace Nile.Windows
                 return;
 
             //Done: Handle errors
-            try
-            {
-                //Delete product
-                _database.Remove(product.Id);
-                UpdateList();
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Delete failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            };
+            if (product.Id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(product.Id), "Invalid product ID");
             //Delete product 
-
+            _database.Remove(product.Id);
+            UpdateList();
         }
         private void EditProduct ( Product product )
         {
@@ -149,31 +138,11 @@ namespace Nile.Windows
             child.Product = product;
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
+            //DONE;
+            ObjectValidator.Validate(product);
 
-            try
-            {
-                //Save product
-                _database.Update(child.Product);
-                UpdateList();
-            }
-            catch (ArgumentException ex)
-            {
-                MessageBox.Show(ex.Message, "Error",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
-            }
-            catch (ValidationException ex)
-            {
-                MessageBox.Show(ex.Message, "Validation Error",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Save failed", "Error",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
-            };
+            _database.Update(child.Product);
+            UpdateList();
         }
         private Product GetSelectedProduct ()
         {
@@ -188,27 +157,27 @@ namespace Nile.Windows
             //Handle errors
             try
             {
-                var products = _database.GetAll().OrderBy(c => c.Name);
+                
 
-                _bsProducts.DataSource = products;
+                _bsProducts.DataSource = _database.GetAll();
             }
             catch (Exception ex)
             {
-                DisplayError(ex);
+                DisplayError(ex.Message);
             };
         }
-        private void DisplayError(Exception ex)
+        private void DisplayError(string message)
         {
-            MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
+        private IProductDatabase _database;
         #endregion
 
         private void AboutBox(object sender, EventArgs e)
         {
-            var form = new AboutBox();
-            form.ShowDialog(this);
+            var about = new AboutBox();
+            about.ShowDialog(this);
         }
     }
   

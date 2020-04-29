@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Nile
 {
-    class ObjectValidator
+    public static class ObjectValidator
     {
         public static IEnumerable<ValidationResult> TryValidate(object value)
         {
@@ -22,9 +22,9 @@ namespace Nile
             return errors;
         }
 
-       //// public static void Validate(object value)
-       // {
-       //     Validator.ValidateObject(value, new ValidationContext(value), true);
-       // }
+       public static void Validate(object value)
+       {
+          Validator.ValidateObject(value, new ValidationContext(value), true);
+       }
     }
 }
